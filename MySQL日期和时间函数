@@ -1,0 +1,812 @@
+# MySQL日期和时间函数
+
+ - ADDDATE(EXPR, DAYS)
+
+    含义:向日期加上指定的天数
+    示例:
+
+    ```
+    SELECT ADDDATE('2016-01-01', 7);
+    ```
+    
+    在 **2016-01-01** 日期中增加 **7** 天,计算结果:
+    
+    > 2016-01-08
+    
+ - ADDDATE(DATE, INTERVAL EXPR UNIT)
+
+    含义:向日期加上指定的时间间隔
+    示例:
+
+    ```
+    SELECT ADDDATE('2016-01-01', INTERVAL 31 DAY);
+    ```
+    
+    在 **2016-01-01** 日期中增加 **31** 天,计算结果：
+    
+    > 2016-02-01
+    
+    ```
+    SELECT ADDDATE('2016-01-01', INTERVAL 6 MONTH);
+    ```
+    
+    在 **2016-01-01** 日期中增加 **6** 个月,计算结果:
+    
+    > 2016-07-01
+    
+    ```
+    SELECT ADDDATE('2016-01-01', INTERVAL 2 QUARTER);
+    ```
+    
+    在 **2016-01-01** 日期中增加 **2** 季度,计算结果:
+    
+    > 2016-07-01
+    
+    ```
+    SELECT ADDDATE('2016-01-01', INTERVAL -1 YEAR);
+    ```
+    
+    在 **2016-01-01** 日期中增加 **-1** 年(也就是减一年),计算结果:
+    
+    > 
+    
+    ```
+    2015-01-01
+    ```
+    
+ - DATE_ADD(DATE, INTERVAL EXPR UNIT)
+
+    含义:相同于 **ADDDATE** 函数
+        
+ - SUBDATE(EXPR, DAYS)
+
+    含义:向日期减去指定的天数,与 **ADDDATE** 反义
+    示例:
+
+    ```
+    SELECT SUBDATE('2016-01-01', 1);
+    ```
+    
+    在 **2016-01-01** 日期中减去 **1** 天,计算结果：
+    
+    > 2015-12-31
+        
+ - SUBDATE(DATE, INTERVAL EXPR UNIT)
+
+    含义:向日期减去指定的时间间隔,与 **ADDDATE** 反义
+    示例:
+
+    ```
+    SELECT SUBDATE('2016-01-01', INTERVAL 1 QUARTER);
+    ```
+    
+    在日期 **2016-01-01** 中减去 **1** 季度,计算结果：
+    
+    > 2015-10-01
+        
+ - DATE_SUB(DATE, INTERVAL EXPR UNIT)
+
+    含义:相同于 **SUBDATE** 函数
+        
+ - ADDTIME(EXPR1, EXPR2)
+
+    含义:在日期 **EXPR1** 中加上 **EXPR2**
+    示例:
+
+    ```
+    SELECT ADDTIME("2016-01-01 00:00:00", "01:00:00");
+    ```
+    
+    在日期 **2016-01-01 00:00:00** 中增加 **01:00:00** ,计算结果：
+    
+    > 2016-01-01 01:00:00
+        
+ - SUBTIME(EXPR1, EXPR2)
+
+    含义:在日期 **EXPR1** 中减去 **EXPR2**
+    示例:
+
+    ```
+    SELECT SUBTIME("2016-01-01 01:00:00", "01:00:00");
+    ```
+    
+    在日期 **2016-01-01 01:00:00** 减去 **01:00:00**,计算结果：
+    
+    > 2016-01-01 00:00:00
+        
+ - CONVERT_TZ(DATE, FROM_TZ, TO_TZ)
+
+    含义:将 **FROM_TZ** 时区的时间转换为 **TO_TZ** 时区的时间
+    示例:
+
+    ```
+    SELECT CONVERT_TZ('2016-10-01 08:00:00', '+08:00', '+9:00');
+    ```
+    
+    将 **+08:00** 时区的日期 **2016-10-01 08:00:00** 转换为 **+9:00** 时区的日期,计算结果：
+    
+    > 2016-10-01 09:00:00
+
+ - CURDATE()
+
+    含义:当前日期
+    示例:
+
+    ```
+    SELECT CURDATE();
+    ```
+
+    获取当前日期,计算结果：
+    
+    > 2016-01-01
+        
+ - CURRENT_DATE()
+
+    含义:相同于 **CURDATE** 函数
+        
+ - CURTIME()
+
+    含义:当前时间
+    示例:
+
+    ```
+    SELECT CURTIME();
+    ```
+    
+    获取当前时间,计算结果：
+    
+    > 02:20:56
+        
+ - CURRENT_TIME()
+
+    含义:相同于 **CURTIME** 函数
+ 
+ - NOW()
+
+    含义:当前日期时间
+    示例:
+
+    ```
+    SELECT NOW();
+    ```
+    
+    获取当前的日期时间,计算结果：
+    
+    > 2016-01-01 02:22:51
+        
+ - LOCALTIME()
+
+    含义:相同于 **NOW** 函数
+    
+ - LOCALTIMESTAMP()
+
+    含义:相同于 **NOW** 和 **LOCALTIME** 函数
+
+ - SYSDATE()
+
+    含义:当前的系统日期时间
+    示例:
+    
+    ```
+    SELECT SYSDATE();
+    ```
+    
+    获取当前的系统日期时间,计算结果:
+    
+    > 2016-01-01 02:23:20
+    
+ - DATE(EXPR)
+
+    含义:提取 **EXPR** 的日期部分
+    示例:
+    
+    ```
+    SELECT DATE('2016-01-01 08:00:00');
+    ```
+    
+    提取日期,计算结果:
+    
+    > 2016-01-01
+    
+ - TIME(EXPR)
+
+    含义:提取 **EXPR** 的时间部分
+    示例:
+    
+    ```
+    SELECT DATE('2016-01-01 08:02:00');
+    ```
+    
+    提取时间,计算结果:
+    
+    > 08:02:00
+    
+ - DATEDIFF(EXPR1, EXPR2)
+
+    含义:计算 **EXPR1** 和 **EXPR2** 日期间隔
+    示例:
+    
+    ```
+    SELECT DATEDIFF('2016-01-01 08:00:00', '2016-01-02 08:00:00');
+    ```
+    
+    计算时间 **2016-01-01 08:00:00** 和时间 **2016-01-02 08:00:00**  的日期间隔,计算结果:
+    
+    > -1
+    
+ - TIMEDIFF(EXPR1, EXPR2)
+
+    含义:计算 **EXPR1** 和 **EXPR2** 时间间隔
+    示例:
+    
+    ```
+    SELECT DATEDIFF('2016-01-01 08:00:00', '2016-01-02 08:00:01');
+    ```
+    
+    计算时间 **2016-01-01 08:00:00** 和时间 **2016-01-02 08:00:01**  的时间间隔,计算结果:
+    
+    > -1
+    
+ - DATE_FORMAT(DATE, FORMAT)
+
+    含义:格式化日期
+    可用格式化参数:
+
+    格式符|说明
+    ---|---
+    %a|工作日的缩写名称(Sun..Sat)
+    %b|月份的缩写名称(Jan..Dec)
+    %c|月份,数字形式(0..12)
+    %D|带有英语后缀的该月日期(0th, 1st, 2nd, 3rd, ...) 
+    %d|该月日期,数字形式(00..31)
+    %e|该月日期,数字形式(0..31)
+    %f|微秒(000000..999999)
+    %H|小时(00..23)
+    %h|小时(01..12)
+    %I|小时(01..12)
+    %i|分钟,数字形式(00..59)
+    %j|一年中的天数,(001..366)
+    %k|小时(0..23)
+    %l|小时(1..12)
+    %M|月份名称(January..December)
+    %m|月份,数字形式(00..12)
+    %p|上午(AM)或下午(PM)
+    %r|时间,12 小时制 (hh:mm:ss AM or PM)
+    %S|秒(00..59)
+    %s|秒(00..59)
+    %T|时间,24小时制(hh:mm:ss)
+    %U|周(00..53),其中周日为每周的第一天
+    %u|周(00..53),其中周一为每周的第一天
+    %V|周(01..53),其中周日为每周的第一天;和 %X 同时使用
+    %v|周(01..53),其中周一为每周的第一天;和 %x 同时使用
+    %W|工作日名称(Sunday..Saturday)
+    %w|一周中的每日(0=周日..6=周六)
+    %X|该周的年份,其中周日为每周的第一天,数字形式,4位数;和%V同时使用 
+    %x|该周的年份,其中周一为每周的第一天,数字形式,4位数;和%v同时使用
+    %Y|年份,数字形式,4位数
+    %y|年份,数字形式,2位数
+    %%|% 字符
+    
+    示例:
+    
+    ```
+    SELECT DATE_FORMAT('2016-10-01 08:00:00', '%W %M %Y');
+    ```
+    
+    格式化时间,计算结果:
+    
+    > Wednesday October 2014
+    
+ - STR_TO_DATE(STR, FORMAT)
+
+    含义:相反与 **DATE_FORMAT** 函数,将给定的字符串 **STR** 按  **FORMAT** 格式解析成日期
+
+ - TIME_FORMAT(TIME, FORMAT)
+
+    含义:用法与 **DATE_FORMAT** 一样,但可能只处理时,分,秒和微秒
+    示例:
+    
+    ```
+    SELECT TIME_FORMAT('16:30:00', '%h:%i %p');
+    ```
+    
+    计算结果:
+    
+    > 04:30 PM
+
+ - DAYOFMONTH(DATE)
+
+    含义:该月份的第几天
+    示例:
+    
+    ```
+    SELECT DAYOFMONTH('2016-01-01');
+    ```
+    
+    计算结果:
+    
+    > 1
+
+ - DAYOFYEAR(DATE)
+
+    含义:该年的第几天
+    示例:
+    
+    ```
+    SELECT DAYOFMONTH('2016-01-01');
+    ```
+    
+    计算结果:
+    
+    > 1
+
+ - DAYOFWEEK(DATE)
+
+    含义:星期对应的索引值(1表示周日,2表示周一,……7 表示周六)
+    示例:
+    
+    ```
+    SELECT DAYOFWEEK('2016-01-01');
+    ```
+    
+    计算结果:
+    
+    > 6
+
+ - WEEKDAY(DATE)
+
+    含义:星期对应的索引值(0表示周一,1表示周二,……6 表示周日)
+    示例:
+    
+    ```
+    SELECT WEEKDAY('2016-01-01');
+    ```
+    
+    计算结果:
+    
+    > 4
+
+ - DAYNAME(DATE)
+
+    含义:星期的名称
+    示例:
+    
+    ```
+    SELECT DAYNAME('2016-01-01');
+    ```
+    
+    计算结果:
+    
+    > Friday
+
+ - MONTHNAME(DATE)
+
+    含义:月份的名称
+    示例:
+    
+    ```
+    SELECT MONTHNAME('2016-01-01');
+    ```
+    
+    计算结果:
+    
+    > January
+
+ - EXTRACT(UNIT FROM DATE)
+
+    含义:提取日期 **DATE** 中的 **UNIT** 部分
+    示例:
+    
+    ```
+    SELECT EXTRACT(YEAR FROM '2016-01-01');
+    ```
+    
+    计算结果:
+    
+    > 2016
+
+ - FROM_UNIXTIME(UNIX_TIMESTAMP)
+
+    含义:将时间戳 **UNIX_TIMESTAMP** 格式化成字符串形式
+    示例:
+    
+    ```
+    SELECT FROM_UNIXTIME(1414066392);
+    ```
+    
+    计算结果:
+    
+    > 2014-10-23 20:13:12
+
+ - FROM_UNIXTIME(UNIX_TIMESTAMP, FORMAT)
+
+    含义:相同于 **FROM_UNIXTIME** 函数,FORMAT 相同于 **DATE_FORMAT**
+
+ - GET_FORMAT({DATE|TIME|DATETIME}, {'EUR'|'USA'|'JIS'|'ISO'|'INTERNAL'})
+
+    含义:返回一个格式字符串
+    可用参数:
+    
+    函数调用|结果
+    ---|---
+    GET_FORMAT(DATE,'USA')|'%m.%d.%Y'
+    GET_FORMAT(DATE,'JIS')|'%Y-%m-%d'
+    GET_FORMAT(DATE,'ISO')|'%Y-%m-%d'
+    GET_FORMAT(DATE,'EUR')|'%d.%m.%Y'
+    GET_FORMAT(DATE,'INTERNAL')|'%Y%m%d'
+    GET_FORMAT(DATETIME,'USA')|'%Y-%m-%d-%H.%i.%s'
+    GET_FORMAT(DATETIME,'JIS')|'%Y-%m-%d %H:%i:%s'
+    GET_FORMAT(DATETIME,'ISO')|'%Y-%m-%d %H:%i:%s'
+    GET_FORMAT(DATETIME,'EUR')|'%Y-%m-%d-%H.%i.%s'
+    GET_FORMAT(DATETIME,'INTERNAL')|'%Y%m%d%H%i%s'
+    GET_FORMAT(TIME,'USA')|'%h:%i:%s %p'
+    GET_FORMAT(TIME,'JIS')|'%H:%i:%s'
+    GET_FORMAT(TIME,'ISO')|'%H:%i:%s'
+    GET_FORMAT(TIME,'EUR')|'%H.%i.%S'
+    GET_FORMAT(TIME,'INTERNAL')|'%H%i%s'
+    
+    示例:
+    
+    ```
+    SELECT GET_FORMAT(DATE, 'EUR');
+    ```
+    
+    计算结果:
+    
+    > %d.%m.%Y
+
+ - LAST_DAY(DATE)
+
+    含义:当月的最后一天
+    示例:
+    
+    ```
+    SELECT LAST_DAY('2016-01-01');
+    ```
+    
+    计算结果:
+    
+    > 31
+
+ - YEAR(DATE)
+
+    含义:日期对应的年份
+    示例:
+    
+    ```
+    SELECT YEAR('2016-01-01');
+    ```
+    
+    计算结果:
+    
+    > 2016
+
+ - QUARTER(DATE)
+
+    含义:日期对应的季度
+    示例:
+    
+    ```
+    SELECT QUARTER('2016-01-01');
+    ```
+    
+    计算结果:
+    
+    > 1
+
+ - MONTH(DATE)
+
+    含义:日期对应的月份
+    示例:
+    
+    ```
+    SELECT MONTH('2016-01-01');
+    ```
+    
+    计算结果:
+    
+    > 1
+
+ - WEEK(DATE[, MODE])
+
+    含义:日期对应的星期数
+    参数 **MODE** 为计算规则:
+    
+    MODE|一周的第一天|范围|第几周
+    ---|---|---|---
+    0|星期日|0-53|今年的一个星期日
+    1|星期一|0-53|4天或更多天
+    2|星期日|1-53|今年的周日
+    3|星期一|1-53|4天或更多天
+    4|星期日|0-53|4天或更多天
+    5|星期一|0-53|今年的周日
+    6|星期日|1-53|4天或更多天
+    7|星期一|1-53|今年的周日
+    
+    示例:
+    
+    ```
+    SELECT WEEK('2014-01-01', 1);
+    ```
+    
+    计算结果:
+    
+    > 1
+    
+    暂时没有研究明白该函数是干什么用?
+
+ - DAY(DATE)
+
+    含义:相同与 **DAYOFMONTH** 函数
+
+ - HOUR(TIME)
+
+    含义:时间对应的小时数
+    示例:
+    
+    ```
+    SELECT HOUR('12:20:15');
+    ```
+    
+    计算结果:
+    
+    > 12
+
+ - MINUTE(TIME)
+
+    含义:时间对应的分钟数
+    示例:
+    
+    ```
+    SELECT HOUR('12:20:15');
+    ```
+    
+    计算结果:
+    
+    > 20
+
+ - SECOND(TIME)
+
+    含义:时间对应的秒数
+    示例:
+    
+    ```
+    SELECT HOUR('12:20:15');
+    ```
+    
+    计算结果:
+    
+    > 15
+
+ - MICROSECOND(EXPR)
+
+    含义:时间表达式 **EXPR** 对应的微秒数
+    示例:
+    
+    ```
+    SELECT MICROSECOND('12:00:00.123456');
+    ```
+    
+    计算结果:
+    
+    > 123456
+
+ - MAKEDATE(YEAR, DAYFORYEAR)
+
+    含义:根据给定的年份和天数得到一个日期
+    示例:
+    
+    ```
+    SELECT MAKEDATE(2016, 32);
+    ```
+    
+    计算结果:
+    
+    > 2016-02-01
+
+ - MAKETIME(HOUR, MINUTE, SECOND)
+
+    含义:根据给定的时分秒得到一个时间
+    示例:
+    
+    ```
+    SELECT MAKETIME(12,30,0);
+    ```
+    
+    计算结果:
+    
+    > 12:30:00
+
+ - PERIOD_ADD(P, N)
+
+    含义:添加 **N** 个月至周期 **P** (格式为 **YYMM** 或 **YYYYMM** ),返回格式为 **YYYYMM** ,注意周期参数不是日期值
+    示例:
+    
+    ```
+    SELECT PERIOD_ADD(201601, 3);
+    ```
+    
+    计算结果:
+    
+    > 201604
+
+ - PERIOD_DIFF(P1, P2)
+
+    含义:返回周期 **P1** 和 **P2** 之间的月份数, **P1** 和 **P2** 的格式为 **YYMM** 或 **YYYYMM**,注意周期参数不是日期值
+    示例:
+    
+    ```
+    SELECT PERIOD_DIFF(201601, 1501);
+    ```
+    
+    计算结果:
+    
+    > 12
+
+ - SEC_TO_TIME(SECONDS)
+
+    含义:将给定的秒数转换成时分秒格式
+    示例:
+    
+    ```
+    SELECT SEC_TO_TIME(3661);
+    ```
+    
+    计算结果:
+    
+    > 01:01:01
+    
+    ```
+    SELECT SEC_TO_TIME(3661) + 0;
+    ```
+    
+    计算结果:
+    
+    > 10101
+
+ - TIME_TO_SEC(TIME)
+
+    含义:将时间 time 转换为秒数
+    示例:
+    
+    ```
+    SELECT TIME_TO_SEC('02:00:01');
+    ```
+    
+    计算结果:
+    
+    > 7201
+
+ - TIMESTAMP(EXPR)
+
+    含义:表达式 **EXPR** 的日期时间值
+    示例:
+    
+    ```
+    SELECT TIMESTAMP('2016-01-01');
+    ```
+    
+    计算结果:
+    
+    > 2016-01-01 00:00:00
+
+ - TIMESTAMP(EXPR1, EXPR2)
+
+    含义:将表达式 **EXPR2** 添加到表达式 **EXPR1** 的结果的日期时间值
+    示例:
+    
+    ```
+    SELECT TIMESTAMP('2016-01-01 12:00:00','12:00:00');
+    ```
+    
+    计算结果:
+    
+    > 2016-01-02 00:00:00
+
+ - TIMESTAMPADD(UNIT, INTERVAL, DATAETIME_EXPR)
+
+    含义:向给定的日期时间值加上指定的时间间隔
+    示例:
+    
+    ```
+    SELECT TIMESTAMPADD(MONTH, 1, '2016-01-01 12:00:00');
+    ```
+    
+    计算结果:
+    
+    > 2016-02-01 12:00:00
+
+ - TIMESTAMPDIFF(UNIT, DATAETIME_EXPR1, DATAETIME_EXPR2)
+
+    含义:日期时间表达式 **DATAETIME_EXPR1** 和 **DATAETIME_EXPR2** 的时间间隔,单位由 **UNIT** 给定
+    示例:
+    
+    ```
+    SELECT TIMESTAMPDIFF(HOUR, '2016-01-01 12:00:00', '2016-01-01 13:30:00');
+    ```
+    
+    计算结果:
+    
+    > 1
+
+ - UNIX_TIMESTAMP()
+
+    含义:当前时间的 **UNIX** 时间戳
+    示例:
+    
+    ```
+    SELECT UNIX_TIMESTAMP();
+    ```
+    
+    计算结果:
+    
+    > 1414330231
+
+ - UNIX_TIMESTAMP(DATE)
+
+    含义:**DATE** 对应的 **UNIX** 时间戳
+    示例:
+    
+    ```
+    SELECT UNIX_TIMESTAMP('2014-10-01 12:00:00');
+    ```
+    
+    计算结果:
+    
+    > 1412136000
+
+ - UTC_DATE()
+
+    含义:当前的 **UTC** 日期
+    示例:
+    
+    ```
+    SELECT UTC_DATE();
+    ```
+    
+    计算结果:
+    
+    > 2016-01-01
+
+ - UTC_TIME()
+
+    含义:当前的 **UTC** 时间
+    示例:
+    
+    ```
+    SELECT UTC_TIME();
+    ```
+    
+    计算结果:
+    
+    > 13:31:18
+
+ - UTC_TIMESTAMP()
+
+    含义:当前的 **UTC** 日期时间
+    示例:
+    
+    ```
+    SELECT UTC_TIMESTAMP();
+    ```
+    
+    计算结果:
+    
+    > 2016-01-02 13:31:18
+
+ - WEEKOFYEAR(DATE)
+
+    含义:相同与 **WEEK** 函数
+
+ - YEARWEEK(DATE[, MODE])
+
+    含义:日期对应的年份和星期数,参数 **MODE** 与 **WEEK** 函数相同。
+    示例:
+    
+    ```
+    SELECT YEARWEEK('2014-01-01');
+    ```
+    
+    计算结果:
+    
+    > 201352
